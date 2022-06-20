@@ -1,14 +1,14 @@
 package route
 
 type Route struct {
-	ID			string
-	ClientID	string
-	Positions	[]Position
+	ID			string		`json:"routeId"`
+	ClientID	string		`json:"clientId"`
+	Positions	[]Position	`json:"positions"`
 }
 
 type Position struct {
-	Latitude	float64
-	Longitude	float64
+	Latitude	float64		`json:"latitude"`
+	Longitude	float64		`json:"longitude"`
 }
 
 type PartialRoutePosition struct {

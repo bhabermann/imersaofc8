@@ -1,5 +1,14 @@
 package route
 
+import (
+	"bufio"
+	"encoding/json"
+	"errors"
+	"os"
+	"strconv"
+	"strings"
+)
+
 type Route struct {
 	ID			string		`json:"routeId"`
 	ClientID	string		`json:"clientId"`
@@ -23,12 +32,12 @@ func(r *Route) LoadPosition() error {
 		return errors.New("Route ID is empty")
 	}
 	
-	f, err := os.open("destinations/" + r.ID + ".txt")
+	f, err := os.Open("destinations/" + r.ID + ".txt")
 	if err != nil {
 		return err
 	}
 	
-	defer f.close()
+	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
 
@@ -38,17 +47,14 @@ func(r *Route) LoadPosition() error {
 		if err != nil {
 			return err
 		}
-		long err := strconv.ParseFloat(data[1], 64)
+		long, err := strconv.ParseFloat(data[1], 64)
 		if err != nil {
 			return err
 		}
-		r.Positions = append(
-			r.Positions, 
+		r.Positions = append(r.Positions, 
 			Position{
 				Latitude: lat, 
-				Longitude: long
-			}
-		)
+				Longitude: long})
 	}
 	return nil
 }
@@ -73,4 +79,5 @@ func(r *Route) ExportJsonPositions() ([]string, error) {
 		}
 		result = append(result, string(jsonRoute))
 	}
+	return result, nil
 }

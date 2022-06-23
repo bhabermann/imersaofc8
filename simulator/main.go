@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	kafka2 "github.com/bhabermann/imersaofc8-simulator/app/kafka"
 	"github.com/bhabermann/imersaofc8-simulator/infra/kafka"
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/joho/godotenv"
@@ -16,13 +17,14 @@ func init() {
 	}
 }
 
+// {"clientId":"1","routeId":"1"}
 func main() {
 	msgChan := make(chan *ckafka.Message)
 	consumer := kafka.NewKafkaConsumer(msgChan)
 	go consumer.Consume()
-
 	for msg := range msgChan {
 		fmt.Println(string(msg.Value))
+		go kafka2.Produce(msg)
 	}
 
 	// producer := kafka.NewKafkaProducer()

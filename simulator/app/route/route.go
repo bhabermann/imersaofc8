@@ -10,33 +10,37 @@ import (
 )
 
 type Route struct {
-	ID			string		`json:"routeId"`
-	ClientID	string		`json:"clientId"`
-	Positions	[]Position	`json:"positions"`
+	ID        string     `json:"routeId"`
+	ClientID  string     `json:"clientId"`
+	Positions []Position `json:"positions"`
 }
 
 type Position struct {
-	Latitude	float64		`json:"latitude"`
-	Longitude	float64		`json:"longitude"`
+	Latitude  float64 `json:"latitude"`
+	Longitude float64 `json:"longitude"`
 }
 
 type PartialRoutePosition struct {
-	ID			string		`json:"routeId"`
-	ClientID	string		`json:"clientId"`
-	Position	[]float64	`json:"position"`
-	Finished	bool		`json:"finished"`
+	ID       string    `json:"routeId"`
+	ClientID string    `json:"clientId"`
+	Position []float64 `json:"position"`
+	Finished bool      `json:"finished"`
 }
 
-func(r *Route) LoadPosition() error {
+func NewRoute() *Route {
+	return &Route{}
+}
+
+func (r *Route) LoadPosition() error {
 	if r.ID == "" {
 		return errors.New("Route ID is empty")
 	}
-	
+
 	f, err := os.Open("destinations/" + r.ID + ".txt")
 	if err != nil {
 		return err
 	}
-	
+
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
@@ -51,15 +55,15 @@ func(r *Route) LoadPosition() error {
 		if err != nil {
 			return err
 		}
-		r.Positions = append(r.Positions, 
+		r.Positions = append(r.Positions,
 			Position{
-				Latitude: lat, 
+				Latitude:  lat,
 				Longitude: long})
 	}
 	return nil
 }
 
-func(r *Route) ExportJsonPositions() ([]string, error) {
+func (r *Route) ExportJsonPositions() ([]string, error) {
 	var route PartialRoutePosition
 	var result []string
 	total := len(r.Positions)

@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt" 
-	myroute "github.com/bhabermann/imersaofc8-simulator/app/route"
+	"log"
+
 	"github.com/bhabermann/imersaofc8-simulator/infra/kafka"
 	"github.com/joho/godotenv"
-	"log"
 )
 
 func init() {
@@ -19,8 +18,11 @@ func main() {
 	producer := kafka.NewKafkaProducer()
 	kafka.Publish("Hello World", "route.new-direction", producer)
 
+	for {
+		_ = 1
+	}
 	// route := myroute.Route{
-	// 	ID: "1",
+	// 	ID:       "1",
 	// 	ClientID: "1",
 	// }
 	// route.LoadPosition()

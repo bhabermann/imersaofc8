@@ -3,6 +3,7 @@ package kafka
 import (
 	"log"
 	"os"
+
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 )
 

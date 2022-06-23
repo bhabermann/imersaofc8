@@ -1,11 +1,12 @@
 package kafka
 
-import(
+import (
 	"fmt"
-	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	"log"
 	"os"
-) 
+
+	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
+)
 
 type KafkaConsumer struct {
 	MsgChan chan *ckafka.Message
@@ -17,7 +18,7 @@ func NewKafkaConsumer(msgChan chan *ckafka.Message) *KafkaConsumer {
 	}
 }
 
-func(k *KafkaConsumer) Consume() {
+func (k *KafkaConsumer) Consume() {
 	configMap := &ckafka.ConfigMap{
 		"bootstrap.servers": os.Getenv("KafkaBootstrapServers"),
 		"group.id":          os.Getenv("KafkaConsumerGroupId"),
@@ -31,6 +32,7 @@ func(k *KafkaConsumer) Consume() {
 		log.Fatal("Error consuming kafka message: " + err.Error())
 	}
 	topics := []string{os.Getenv("KafkaReadTopic")}
+	c.SubscribeTopics(topics, nil)
 	fmt.Println("Kafka consumer has been starter")
 	for {
 		msg, err := c.ReadMessage(-1)

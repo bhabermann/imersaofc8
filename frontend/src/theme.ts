@@ -1,13 +1,14 @@
 import { createTheme, PaletteOptions } from "@mui/material";
+import { grey, yellow } from "@mui/material/colors";
 
 const palette: PaletteOptions = {
-    // type: "dark",
+    mode: "dark",
     primary: {
-        main: "#FFCD00",
-        contrastText: "#232526",
+        main: yellow[700],//"#FFCD00",
+        contrastText: grey[900] // "#232526",
     },
     background: {
-        default: "#242526"
+        default: grey[900] //"#242526"
     },
 }
 

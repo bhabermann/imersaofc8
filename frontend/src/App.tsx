@@ -1,11 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Mapping } from './Mapping';
+import { ThemeProvider } from '@emotion/react';
+import theme from './theme';
+import { CssBaseline } from '@mui/material';
 
 function App() {
   return (
-    <Mapping></Mapping>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Mapping />
+    </ThemeProvider>
+      
     // <div className="App">
     //   <header className="App-header">
     //     <img src={logo} className="App-logo" alt="logo" />

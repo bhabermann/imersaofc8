@@ -1,4 +1,4 @@
-import { Grid, MenuItem, Select } from "@mui/material"
+import { Button, Grid, MenuItem, Select } from "@mui/material"
 
 type Props = {}
 
@@ -7,7 +7,7 @@ export const Mapping = (props: Props) => {
         <Grid container>
             <Grid item xs={12} sm={3}>
                 <form>
-                    <Select>
+                    <Select fullWidth>
                         <MenuItem value="">
                             <em>Selecione uma corrida</em>
                         </MenuItem>
@@ -21,10 +21,13 @@ export const Mapping = (props: Props) => {
                             <em>Terceira corrida</em>
                         </MenuItem>                                                                        
                     </Select>
+                    <Button type="submit" color="primary" variant="contained">
+                        Iniciar uma corrida
+                    </Button>
                 </form>
             </Grid>
             <Grid item xs={12} sm={9}>
-                Mapa
+                <div id="map"></div>
             </Grid>
         </Grid>
     )

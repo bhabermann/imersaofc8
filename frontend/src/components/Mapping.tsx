@@ -8,6 +8,7 @@ type Props = {}
 
 export const Mapping = (props: Props) => {
     const [routes, setRoutes] = useState<Route[]>([]);
+    // const [routes, setRoutes] = useState<Route[]>([]);
 
     useEffect(() => {
         fetch(`${API_URL}/routes`)

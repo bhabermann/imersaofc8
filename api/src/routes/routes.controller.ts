@@ -30,6 +30,11 @@ export class RoutesController {
     return this.routesService.findOne(+id);
   }
 
+  @Get(':id/start')
+  startRoute(@Param('id') id: string) {
+    console.log(id);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRouteDto: UpdateRouteDto) {
     return this.routesService.update(+id, updateRouteDto);

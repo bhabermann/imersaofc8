@@ -11,7 +11,7 @@ export const Mapping = (props: Props) => {
     // const [routes, setRoutes] = useState<Route[]>([]);
 
     useEffect(() => {
-        fetch(`${API_URL}/routes`)
+        fetch(`${API_URL}routes`)
             .then((data) => data.json())
             .then((data) => setRoutes(data));
     }, [])
@@ -26,16 +26,9 @@ export const Mapping = (props: Props) => {
                         </MenuItem>
                         { routes.map((route, key) => (
                             <MenuItem key={key} value={route.id}>
-                                <em>{route.title}</em>
+                                {route.title}
                             </MenuItem>
-                        ))}
-
-                        <MenuItem value="2">
-                            <em>Segunda corrida</em>
-                        </MenuItem>
-                        <MenuItem value="3">
-                            <em>Terceira corrida</em>
-                        </MenuItem>                                                                        
+                        ))}                                                                  
                     </Select>
                     <Button type="submit" color="primary" variant="contained">
                         Iniciar uma corrida
